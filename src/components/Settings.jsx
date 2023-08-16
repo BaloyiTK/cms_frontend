@@ -6,21 +6,21 @@ const Settings = ({ onSelectedSetting }) => {
   };
 
   const settingsList = [
-    {
-      title: "Project",
-      onClick: () => handleSettingClick("Project"),
-    //  content: <div>General project settings content</div> // Replace with actual content
-    },
+    // {
+    //   title: "Project",
+    //   onClick: () => handleSettingClick("Project"),
+    // //  content: <div>General project settings content</div> // Replace with actual content
+    // },
     {
       title: "Endpoints",
       onClick: () => handleSettingClick("Endpoints"),
       //content: <div>Access control content</div> // Replace with actual content
     },
-    {
-      title: "Team Members",
-      onClick: () => handleSettingClick("Team Members"),
-      //content: <div>Project members content</div> // Replace with actual content
-    }
+    // {
+    //   title: "Team Members",
+    //   onClick: () => handleSettingClick("Team Members"),
+    //   //content: <div>Project members content</div> // Replace with actual content
+    // }
   ];
 
   return (
