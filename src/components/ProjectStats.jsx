@@ -96,20 +96,20 @@ const ProjectStats = () => {
               <p className="text-green-600">Active</p>
             </div>
 
-            {/* Team Members Card */}
+            {/* Team Members Card 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h4 className="text-lg font-bold mb-2">Team Members</h4>
               <ul className="list-disc list-inside text-gray-600">
                 <li>John Doe</li>
                 <li>Jane Smith</li>
               </ul>
-            </div>
+            </div>*/}
 
-            {/* Number of API Calls Card */}
+            {/* Number of API Calls Card 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h4 className="text-lg font-bold mb-2">API Calls</h4>
               <p className="text-gray-600">108</p>
-            </div>
+            </div>*/}
 
             {/* You can continue adding more cards for different project stats */}
           </div>
