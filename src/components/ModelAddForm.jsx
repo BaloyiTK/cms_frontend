@@ -90,7 +90,7 @@ const ModelAddForm = ({ onCancel, onSubmit }) => {
             id="modelName"
             type="text"
             value={modelName}
-            onChange={(e) => setModelName(e.target.value)}
+            onChange={(e) => setModelName(e.target.value.toLowerCase())}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
             required
           />
@@ -154,19 +154,20 @@ const Field = React.memo(
         Field Name:
       </label>
       <input
-        id={`fieldName${index}`}
-        type="text"
-        name="name"
-        value={field.name || ""}
-        onChange={(e) =>
-          handleFieldChange(index, {
-            ...field,
-            name: e.target.value,
-          })
-        }
-        className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-        required
-      />
+  id={`fieldName${index}`}
+  type="text"
+  name="name"
+  value={field.name || ""}
+  onChange={(e) =>
+    handleFieldChange(index, {
+      ...field,
+      name: e.target.value.toLowerCase(), // Convert input value to lowercase
+    })
+  }
+  className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+  required
+/>
+
       <br />
       <label htmlFor={`fieldType${index}`} className="block font-medium mb-2">
         Field Type:

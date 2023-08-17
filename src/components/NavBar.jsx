@@ -12,6 +12,7 @@ import {
   RiLogoutBoxLine,
   RiAccountCircleLine,
 } from "react-icons/ri";
+import LOGO from "../images/LOGO.png";
 
 const ProfileDropdown = React.memo(({ handleLogout, handleAccountClick }) => (
   <div className="absolute w-fit right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-md">
@@ -158,7 +159,8 @@ const NavBar = () => {
           className="text-2xl font-bold text-gray-800"
           onClick={reloadProfilePictureKey}
         >
-          XpandCMS
+          <img src={LOGO} alt="" />
+      
         </Link>
         {!isLoading && (
           <div className="flex items-center">

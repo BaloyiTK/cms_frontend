@@ -9,8 +9,9 @@ const HomePage = () => {
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const [projectsLoading, setProjectsLoadingState] = useState(false);
-  const [cachedData, setCachedData] = useState(null); // Add a new state for cached data
+  const [cachedData, setCachedData] = useState(null);
 
+  // Color the variable names and function names for better readability
   const handleProjectsLoading = useCallback((loadingState) => {
     setProjectsLoadingState(loadingState);
   }, []);
@@ -20,14 +21,11 @@ const HomePage = () => {
       try {
         setLoading(true);
 
-        // Check if cached data exists before making a network request
         if (cachedData) {
           setisLoggedIn(cachedData);
         } else {
           const response = await axios.get(`${baseUrl}/loginStatus`);
           setisLoggedIn(response.data);
-
-          // Cache the response data
           setCachedData(response.data);
         }
       } catch (error) {
@@ -38,7 +36,7 @@ const HomePage = () => {
     };
 
     getLoginStatus();
-  }, [cachedData]); // Fetch data again if cachedData changes
+  }, [cachedData]);
 
   const renderLoader = useMemo(() => <Loader />, []);
   const renderLoggedIn = useMemo(
