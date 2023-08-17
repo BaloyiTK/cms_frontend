@@ -152,7 +152,7 @@ const NavBar = () => {
   );
 
   return (
-    <header className="shadow bg-white h-22">
+    <header className="shadow bg-white h-22 border-b-2 border-orange-700">
       <nav className="flex justify-between items-center w-[95%] mx-auto h-20">
         <Link
           to="/"
