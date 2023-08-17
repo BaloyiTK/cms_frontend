@@ -152,11 +152,11 @@ const NavBar = () => {
   );
 
   return (
-    <header className="shadow bg-white h-20">
+    <header className="shadow bg-white h-22">
       <nav className="flex justify-between items-center w-[95%] mx-auto h-20">
         <Link
           to="/"
-          className="text-2xl font-bold text-gray-800"
+          className="flex justify-center text-2xl font-bold text-gray-800 mt-[1.5%]"
           onClick={reloadProfilePictureKey}
         >
           <img src={LOGO} alt="" />
