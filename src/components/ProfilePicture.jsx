@@ -68,7 +68,7 @@ const ProfilePicture = ({ toggleDropdown }) => {
   }
 
   return (
-    <div className="">
+    <div className="border rounded-full border-white">
       {userPhoto ? (
         <img
           src={userPhoto}

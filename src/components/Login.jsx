@@ -6,7 +6,15 @@ import { authActions } from "../store";
 import { loginUser } from "../utils/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaTimes, FaCheck, FaSpinner } from "react-icons/fa";
+import {
+  FaTimes,
+  FaCheck,
+  FaSpinner,
+  FaEnvelope,
+  FaLock,
+  FaSignInAlt,
+} from "react-icons/fa";
+import Icon from "../images/Icon.png";
 
 axios.defaults.withCredentials = true;
 
@@ -50,59 +58,80 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-10">
-      <div className="bg-white p-8 rounded shadow-lg w-full sm:w-96 mx-2 border border-gray-300 ">
-        <h1 className="text-2xl font-bold mb-6">Login</h1>
-        <form onSubmit={handleSubmit} className=" ">
+    <div className="flex justify-center items-center mt-14 md:mt-0  md:h-screen">
+      <div
+        className="bg-white p-8 rounded shadow-lg w-full sm:w-96 mx-2 border border-gray-300"
+       // style={{ fontFamily: "Arial, sans-serif" }}
+      >
+        <div className="flex justify-center items-center">
+          <div className="text-center mb-5">
+            <img src={Icon} alt="" className="mx-auto" />
+            <h1 className="font-bold text-lg mt-5">Login to XpandCMS</h1>
+          </div>
+        </div>
+        <form onSubmit={handleSubmit} className="">
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-semibold mb-2"
               htmlFor="email"
             >
               Email:
             </label>
-            <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
-              type="email"
-              name="email"
-              id="email"
-              autoComplete="email"
-              value={userData.email}
-              onChange={handleChange}
-              required
-            />
+            <div className="relative flex items-center">
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 pl-8"
+                type="email"
+                name="email"
+                id="email"
+                autoComplete="email"
+                value={userData.email}
+                onChange={handleChange}
+                required
+                placeholder="email"
+              />
+              <FaEnvelope className="text-gray-500 absolute left-2 " />
+            </div>
           </div>
+
           <div className="mb-6">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-semibold mb-2"
               htmlFor="password"
             >
               Password:
             </label>
-            <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
-              type="password"
-              name="password"
-              id="password"
-              autoComplete="password"
-              value={userData.password}
-              onChange={handleChange}
-              required
-            />
+
+            <div className="relative flex items-center">
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 pl-8"
+                type="password"
+                name="password"
+                id="password"
+                autoComplete="password"
+                value={userData.password}
+                onChange={handleChange}
+                required
+                placeholder="password"
+              />
+              <FaLock className="text-gray-500 absolute left-2 " />
+            </div>
           </div>
           <div className="flex justify-center">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline relative"
               type="submit"
               disabled={isLoading}
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <FaSpinner className="animate-spin" />
-                  <span>Login</span>
+                  <span className="ml-2">Logging in...</span>
                 </div>
               ) : (
-                "Login"
+                <>
+                  <span className="pr-3 ">Login</span>
+                  <FaSignInAlt className="absolute right-2 top-1/2 transform -translate-y-1/2" />
+                </>
               )}
             </button>
           </div>
@@ -111,18 +140,20 @@ const Login = () => {
         <div className="flex justify-center mt-2">
           <Link
             to="/forgot-password"
-            className="text-blue-500 hover:underline"
+            className="text-blue-500 hover:underline font-semibold"
           >
             Forgot Password?
           </Link>
         </div>
         <div className="mt-4 text-center">
-          <span>Don't have an account?</span>
-          <Link to="/register" className="text-blue-500 hover:underline ml-1  font-medium">
+          <span className="font-medium">Don't have an account?</span>
+          <Link
+            to="/register"
+            className="text-blue-500 hover:underline ml-1 font-medium"
+          >
             Register
           </Link>
         </div>
-       
       </div>
     </div>
   );
