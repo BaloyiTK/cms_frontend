@@ -13,6 +13,8 @@ import {
   FaEnvelope,
   FaLock,
   FaSignInAlt,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 import Icon from "../images/Icon.png";
 
@@ -23,6 +25,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -58,15 +61,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-14 md:mt-0  md:h-screen">
+    <div className="flex justify-center items-center mt-10 ">
       <div
-        className="bg-white p-8 rounded shadow-lg w-full sm:w-96 mx-2 border border-gray-300"
-       // style={{ fontFamily: "Arial, sans-serif" }}
+        className="bg-white p-8 rounded shadow-lg w-full sm:w-96 mx-3 border border-gray-300"
+        // style={{ fontFamily: "Arial, sans-serif" }}
       >
         <div className="flex justify-center items-center">
           <div className="text-center mb-5">
             <img src={Icon} alt="" className="mx-auto" />
-            <h1 className="font-bold text-lg mt-5">Login to XpandCMS</h1>
+            <h1 className="font-bold text-2xl mt-1">Login</h1>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="">
@@ -104,7 +107,7 @@ const Login = () => {
             <div className="relative flex items-center">
               <input
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 pl-8"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 autoComplete="password"
@@ -114,6 +117,13 @@ const Login = () => {
                 placeholder="password"
               />
               <FaLock className="text-gray-500 absolute left-2 " />
+              <button
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
           </div>
           <div className="flex justify-center">

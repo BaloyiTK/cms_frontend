@@ -41,8 +41,8 @@ const ProjectAddForm = ({ onClose, onProjectAdded }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white w-96 rounded-lg shadow-lg p-6 transform transition-all duration-300 ease-in-out">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 ">
+      <div className="bg-white w-96 rounded-lg p-6 transform transition-all duration-300 ease-in-out mx-3  shadow-2xl border border-gray-300">
         <h3 className="text-xl font-bold mb-4">New Project</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

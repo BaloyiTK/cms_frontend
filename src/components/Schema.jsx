@@ -10,7 +10,7 @@ import { fieldTypeOptions } from "./FieldTypes";
 import ModelAddForm from "./ModelAddForm";
 import ModelSettingForm from "./ModelSettingForm";
 
-const Schema = () => {
+const Schema = ({ showAddForm }) => {
   const [models, setModels] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedModel, setSelectedModel] = useState(null);
@@ -20,7 +20,18 @@ const Schema = () => {
   const [selectedModelIndex, setSelectedModelIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(showAddForm)
+
   console.log(selectedModel && selectedModel)
+  useEffect(() => {
+    if (showAddForm) {
+      setShowForm(showAddForm)
+      
+    }
+ 
+  }, [showAddForm])
+  
+  
 
   const projectId = window.location.href.split("/").pop();
 

@@ -44,7 +44,7 @@ const HomePage = () => {
   const renderLoader = useMemo(() => <Loader />, []);
   const renderLoggedIn = useMemo(
     () => (
-      <main className="max-w-7xl mx-auto py-16 px-6">
+      <main className="max-w-7xl mx-auto py-16 px-6 min-h-screen">
         <Project setProjectsLoadingState={handleProjectsLoading} />
       </main>
     ),
@@ -64,10 +64,10 @@ const HomePage = () => {
           user-friendly interface and robust features, you can focus on creating
           exceptional content while XpandCMS takes care of the rest.
         </p>
-        <div className="grid md:flex justify-center items-center">
+        <div className="grid md:flex justify-center w-full items-center">
   <Link
     to="/register"
-    className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded-full flex m-1 items-center md:justify-center w-40 text-sm md:text-base"
+    className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full flex m-2 items-center md:justify-center w-full md:w-40    text-sm md:text-base"
   >
     <span className="flex items-center ml-[15%] md:ml-0">
       <FaUser className="mr-1" />
@@ -75,8 +75,8 @@ const HomePage = () => {
     </span>
   </Link>
   <Link
-    to="/register"
-    className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded-full flex m-1 items-center md:justify-center w-40 text-sm md:text-base"
+    to="/documentation"
+    className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full flex m-2 items-center md:justify-center w-full md:w-40 text-sm md:text-base"
   >
     <span className="flex items-center ml-[15%] md:ml-0">
       <FaFileAlt className="mr-1" />
@@ -84,8 +84,8 @@ const HomePage = () => {
     </span>
   </Link>
   <Link
-    to="/register"
-    className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded-full flex m-1 items-center md:justify-center w-40 text-sm md:text-base"
+    to="/demo"
+    className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full flex m-2 items-center md:justify-center w-full md:w-40 text-sm md:text-base"
   >
     <span className="flex items-center ml-[15%] md:ml-0">
       <FaPlay className="mr-1" />
