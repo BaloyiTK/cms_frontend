@@ -38,7 +38,7 @@ const ForgotPassword = () => {
             <h1 className="font-semibold text-2xl mt-1">Forgot Password</h1>
           </div>
         <form onSubmit={handleSubmit}>
-          <p className='text-xs mb-2'>Please enter the email address associated with your XpandCMS Account</p>
+          <p className='text-sm mb-2'>Please enter the email address associated with your XpandCMS Account</p>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">
               Email:
