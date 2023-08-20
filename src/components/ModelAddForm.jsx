@@ -127,7 +127,7 @@ const ModelAddForm = ({ onCancel, onSubmit }) => {
             {loading ? (
               <div className="flex items-center justify-center">
                 <FaSpinner className="animate-spin" />
-                <span>+Add</span>
+                <span>+Adding...</span>
               </div>
             ) : (
               "+Add"
