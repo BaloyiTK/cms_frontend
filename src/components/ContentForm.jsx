@@ -205,7 +205,7 @@ const ContentForm = ({
           {IsAddingContentDraft ? (
             <div className="flex items-center justify-center">
               <FaSpinner className="animate-spin" />
-              <span>Save</span>
+              <span>Saving...</span>
             </div>
           ) : (
             "Save"
@@ -221,7 +221,7 @@ const ContentForm = ({
           {IsAddingContentPublish ? (
             <div className="flex items-center justify-center">
               <FaSpinner className="animate-spin" />
-              <span>Publish</span>
+              <span>Publishing...</span>
             </div>
           ) : (
             "Publish"
