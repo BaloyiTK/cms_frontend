@@ -10,7 +10,6 @@ const ModelSettingForm = ({ models, selectedModel, onClose }) => {
   const url = window.location.href;
   const projectId = url.split("/").pop();
 
-  console.log(relationshipType);
 
   useEffect(() => {
     setSelectedModelName(selectedModel.modelName);
@@ -26,8 +25,7 @@ const ModelSettingForm = ({ models, selectedModel, onClose }) => {
 
   const handleSubmit =  async(event) => {
     event.preventDefault();
-    console.log("Main Model:", selectedModel._id);
-    console.log("Selected Model:", selectedModel1);
+   
 
     const selectedModelObject = models.find(
       (model) => model.modelName === selectedModel1

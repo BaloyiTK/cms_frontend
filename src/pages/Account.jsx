@@ -26,7 +26,7 @@ const Account = () => {
   // useSelector to get the profilePictureKey from the Redux store
   const profilePictureKey = useSelector((state) => state.profilePicture.key);
 
-  console.log(profilePictureKey)
+  
 
 
   

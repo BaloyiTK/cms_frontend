@@ -40,8 +40,6 @@ const ContentManagement = ({ selectedModel }) => {
   const url = window.location.href;
   const projectId = url.split("/").pop();
 
-  console.log(content);
-
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
@@ -129,8 +127,6 @@ const ContentManagement = ({ selectedModel }) => {
     }
   };
 
-  console.log("IsPublishing:", IsPublishing);
-  console.log("IsUnPublishing:", IsUnPublishing);
 
   const cancelForm = () => {
     setShowForm(false);
@@ -143,7 +139,7 @@ const ContentManagement = ({ selectedModel }) => {
     if (stage === "Published") {
       setIsAddingContentPublish(true);
 
-      console.log("set");
+   
     }
     if (stage === "Draft") {
       setIsAddingContentDraft(true);

@@ -24,13 +24,11 @@ const ResetPassword = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("reset ");
-
     const myKeyValues = window.location.search;
     const urlParams = new URLSearchParams(myKeyValues);
     const token = urlParams.get("token");
 
-    console.log(token);
+  
 
     if (!token) {
       // Handle the case where token is missing
@@ -62,7 +60,7 @@ const ResetPassword = () => {
       }
     } catch (error) {
       // Handle error
-      console.log(error);
+     
       toast.error(error, {
         icon: <FaTimes className="text-red-500" />,
       });

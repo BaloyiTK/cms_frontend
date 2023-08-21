@@ -20,9 +20,7 @@ const Schema = ({ showAddForm }) => {
   const [selectedModelIndex, setSelectedModelIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(showAddForm)
-
-  console.log(selectedModel && selectedModel)
+  
   useEffect(() => {
     if (showAddForm) {
       setShowForm(showAddForm)
