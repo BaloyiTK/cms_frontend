@@ -223,7 +223,7 @@ const ModelEditForm = ({ index, onClose, onEdit }) => {
             {isLoading ? (
               <div className="flex items-center justify-center">
                 <FaSpinner className="animate-spin" />
-                <>Save</>
+                <>Saving...</>
               </div>
             ) : (
               "Save"

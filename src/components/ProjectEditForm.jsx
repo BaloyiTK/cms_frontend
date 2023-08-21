@@ -88,7 +88,7 @@ const ProjectEditForm = ({ project, onClose, onProjectEdited }) => {
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <FaSpinner className="animate-spin" />
-                  <span>Save</span>
+                  <span>Saving...</span>
                 </div>
               ) : (
                 "Save"

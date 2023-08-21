@@ -54,7 +54,7 @@ const ProjectDeleteForm = ({ project, onClose, onDelete, isDeleting }) => {
                 {isDeleting ? (
                   <div className="flex items-center justify-center">
                   <FaSpinner className="animate-spin" />
-                  <span>Delete</span> 
+                  <span>Deleting...</span> 
                  
                 </div>
                 ) : (

@@ -80,7 +80,7 @@ const ProjectAddForm = ({ onClose, onProjectAdded }) => {
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <FaSpinner className="animate-spin" />
-                  <span>Add</span>
+                  <span>Adding...</span>
                 </div>
               ) : (
                 "Add"

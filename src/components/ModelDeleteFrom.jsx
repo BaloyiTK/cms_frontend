@@ -28,7 +28,7 @@ const ModelDeleteForm = ({ onClose, onDelete, isLoading }) => {
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <FaSpinner className="animate-spin" />
-                  <span>Delete</span>
+                  <span>Deleting...</span>
                 </div>
               ) : (
                 "Delete"
