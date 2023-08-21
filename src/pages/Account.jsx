@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSpinner, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions, dropdownActions, profilePictureActions } from "../store";
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./components/Home";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Account from "./components/Account";
+import HomePage from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Account from "./pages/Account";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./components/NavBar";
@@ -13,9 +13,14 @@ import Master from "./components/Master";
 import { baseUrl } from "./utils/baseUrl";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import Footer from "./components/Footer";
+import { useSelector, useDispatch } from "react-redux";
+import { dropdownActions } from "./store";
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isDropdownOpen = useSelector((state) => state.dropdown.isOpen);
 
   const handleLogout = async () => {
     try {
@@ -26,13 +31,21 @@ function App() {
     }
   };
 
+  const handleAppClick = () => {
+ 
+    if (isDropdownOpen) {
+      dispatch(dropdownActions.closeDropdown());
+    }
+
+  };
+
   return (
-    <div className="">
+    <div onClick={handleAppClick}>
       <React.Fragment>
         <header>
           <NavBar handleLogout={handleLogout} />
         </header>
-        <main className="min-h-fit mx-auto">
+        <main className="min-h-screen mx-auto">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
@@ -41,11 +54,12 @@ function App() {
             <Route path="/project/:id" element={<Master />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-
-            
           </Routes>
         </main>
-        <ToastContainer className=" text-sm" />
+        <footer>
+          <Footer />
+        </footer>
+        <ToastContainer className="text-sm" />
       </React.Fragment>
     </div>
   );

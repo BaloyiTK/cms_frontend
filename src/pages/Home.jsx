@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Project from "./Project";
+import Project from "../components/Project";
 import { baseUrl } from "../utils/baseUrl";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import { FaUser, FaFileAlt, FaPlay } from "react-icons/fa";
 
 const HomePage = () => {
@@ -106,9 +106,7 @@ const HomePage = () => {
       ) : (
         <>
           {isLoggedIn ? renderLoggedIn : renderLoggedOut}
-          <footer className="bg-gray-800 text-white text-center py-4">
-            <p>&copy; 2023 XpandCMS. All rights reserved.</p>
-          </footer>
+       
         </>
       )}
     </div>

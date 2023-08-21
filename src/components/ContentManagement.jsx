@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import moment from "moment";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import {
+  FaCheck,
+  FaEdit,
+  FaSpinner,
+  FaTimes,
+  FaTrashAlt,
+} from "react-icons/fa";
 import ContentForm from "./ContentForm";
 import ScheduleForm from "./ScheduleForm";
 import ContentEditForm from "./ContentEditForm";
@@ -24,18 +30,17 @@ const ContentManagement = ({ selectedModel }) => {
   const [error, setError] = useState();
   const [showEditForm, setShowEditForm] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [isFetchingContent, setIsFetchingContent] = useState(false);
   const [IsAddingContentDraft, setIsAddingContentDraft] = useState(false);
   const [IsAddingContentPublish, setIsAddingContentPublish] = useState(false);
   const [IsAddingContentSchedule, setIsAddingContentSchedule] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [IsPublishing, setIsPublishing] = useState(false);
   const [IsUnPublishing, setIsUnPublishing] = useState(false);
+  const [IsDeleting, setIsDeleting] = useState(false);
 
   const url = window.location.href;
   const projectId = url.split("/").pop();
 
-  console.log(content)
+  console.log(content);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -48,13 +53,13 @@ const ContentManagement = ({ selectedModel }) => {
   };
 
   const fetchContent = async () => {
-    setIsFetchingContent(true);
+   // setIsFetchingContent(true);
     try {
       const response = await axios.get(
         `${baseUrl}/content/${modelName}/${projectId}`
       );
       setContent(response.data);
-      setIsFetchingContent(false);
+     // setIsFetchingContent(false);
 
       // Cache the content in local storage
       localStorage.setItem(
@@ -73,7 +78,7 @@ const ContentManagement = ({ selectedModel }) => {
     );
     if (cachedContent) {
       setContent(JSON.parse(cachedContent));
-      setIsFetchingContent(false);
+     // setIsFetchingContent(false);
     } else {
       fetchContent();
     }
@@ -124,6 +129,9 @@ const ContentManagement = ({ selectedModel }) => {
     }
   };
 
+  console.log("IsPublishing:", IsPublishing);
+  console.log("IsUnPublishing:", IsUnPublishing);
+
   const cancelForm = () => {
     setShowForm(false);
     setFormData({});
@@ -134,8 +142,8 @@ const ContentManagement = ({ selectedModel }) => {
   const handleButtonClick = async (stage) => {
     if (stage === "Published") {
       setIsAddingContentPublish(true);
-     
-      console.log("set")
+
+      console.log("set");
     }
     if (stage === "Draft") {
       setIsAddingContentDraft(true);
@@ -250,14 +258,23 @@ const ContentManagement = ({ selectedModel }) => {
   };
 
   const handleBulkPublishUnpublishClick = async (stage) => {
+    if (stage == "Published") {
+      setIsPublishing(true);
+    } else {
+      setIsUnPublishing(true);
+    }
     try {
       const res = await axios.patch(`${baseUrl}/content/${modelName}`, {
         stage: stage,
         selectedRecords: selectedRecord,
       });
-
       fetchContent();
-      setDropdown(false);
+      if (!IsUnPublishing && !IsPublishing) {
+        setDropdown(false);
+      }
+
+      setIsUnPublishing(false);
+      setIsPublishing(false);
       setSelectedRecord([]);
     } catch (error) {
       console.error(error);
@@ -268,6 +285,7 @@ const ContentManagement = ({ selectedModel }) => {
     if (!selectedRecord || selectedRecord.length === 0) {
       return;
     }
+    setIsDeleting(true);
 
     var selectedRecordIds = [];
 
@@ -289,6 +307,7 @@ const ContentManagement = ({ selectedModel }) => {
           (content) => !selectedRecordIds.includes(content._id)
         )
       );
+      setIsDeleting(false);
 
       setSelectedRecord([]);
       setSelectedItem(null);
@@ -327,10 +346,14 @@ const ContentManagement = ({ selectedModel }) => {
                     className="ml-2 cursor-pointer text-gray-400 hover:text-gray-500"
                     onClick={handleEditClick}
                   />
-                  <FaTrashAlt
-                    className="ml-2 cursor-pointer text-gray-400 hover:text-gray-500"
-                    onClick={handleDeleteClick}
-                  />
+                  {IsDeleting ? (
+                    <FaSpinner className="animate-spin ml-2" />
+                  ) : (
+                    <FaTrashAlt
+                      className="ml-2 cursor-pointer text-gray-400 hover:text-gray-500"
+                      onClick={handleDeleteClick}
+                    />
+                  )}
                 </div>
               )}
 
@@ -347,21 +370,41 @@ const ContentManagement = ({ selectedModel }) => {
                       selectedRecord[0]._id
                     )
                   }
+                  disabled={IsPublishing || IsUnPublishing}
                 >
-                  {selectedRecord[0].stage === "Published"
-                    ? "Unpublish"
-                    : "Publish"}
+                  {selectedRecord[0].stage === "Published" ? (
+                    IsUnPublishing ? (
+                      <span className="flex items-center">
+                        <FaSpinner className="animate-spin mr-1" /> Unpublishing
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        <FaTimes className="mr-1" /> Unpublish
+                      </span>
+                    )
+                  ) : IsPublishing ? (
+                    <span className="flex items-center">
+                      <FaSpinner className="animate-spin mr-1" /> Publishing
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      <FaCheck className="mr-1" /> Publish
+                    </span>
+                  )}
                 </button>
               )}
 
               {selectedRecord && selectedRecord.length > 1 ? (
                 <div className="p-1 flex mr-2 justify-center items-center">
-                  <div className="flex mr-2">
+                  {IsDeleting ? (
+                    <FaSpinner className="animate-spin mr-1" />
+                  ) : (
                     <FaTrashAlt
                       className="ml-2 cursor-pointer text-gray-400 hover:text-gray-500"
                       onClick={handleDeleteClick}
                     />
-                  </div>
+                  )}
+                  <div className="flex mr-2"></div>
 
                   <div className="flex relative text-left">
                     <button
@@ -385,22 +428,41 @@ const ContentManagement = ({ selectedModel }) => {
                     </button>
                     {dropdown && (
                       <div className="absolute right-0 top-5 mt-2 w-48 bg-white  shadow-2xl border">
-                        <button
-                          className="flex w-full font-semibold border-b px-4 py-2 text-sm text-green-500 hover:bg-gray-100"
-                          onClick={() =>
-                            handleBulkPublishUnpublishClick("Published", null)
-                          }
-                        >
-                          Publish Selected
-                        </button>
-                        <button
-                          className=" flex w-full font-semibold px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
-                          onClick={() =>
-                            handleBulkPublishUnpublishClick("Draft", null)
-                          }
-                        >
-                          Unpublish Selelected
-                        </button>
+                        {IsPublishing ? (
+                          <span className="flex items-center">
+                            <FaSpinner className="animate-spin ml-1" />
+                            <button className="flex font-semibold border-b px-4 py-2 text-sm text-green-500 hover:bg-gray-100">
+                              Publishing
+                            </button>
+                          </span>
+                        ) : (
+                          <button
+                            className="flex w-full font-semibold border-b px-4 py-2 text-sm text-green-500 hover:bg-gray-100"
+                            onClick={() =>
+                              handleBulkPublishUnpublishClick("Published", null)
+                            }
+                          >
+                            Publish Selected
+                          </button>
+                        )}
+
+                        {IsUnPublishing ? (
+                          <span className="flex items-center">
+                            <FaSpinner className="animate-spin ml-1" />
+                            <button className="flex font-semibold border-b px-4 py-2 text-sm text-red-500 hover:bg-gray-100">
+                              Unpublishing
+                            </button>
+                          </span>
+                        ) : (
+                          <button
+                            className="flex w-full font-semibold border-b px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+                            onClick={() =>
+                              handleBulkPublishUnpublishClick("Draft", null)
+                            }
+                          >
+                            Unpublish Selelected
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>
