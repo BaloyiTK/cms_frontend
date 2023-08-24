@@ -7,14 +7,10 @@ import {
   FaCalendar,
   FaClock,
   FaEnvelope,
-  FaCheckSquare,
   FaList,
-  FaPalette,
-  FaFileUpload,
   FaLink,
   FaLock,
-  FaToggleOff,
-  FaSlidersH,
+
 } from "react-icons/fa";
 
 export const fieldTypeOptions = {
@@ -66,29 +62,12 @@ export const fieldTypeOptions = {
     color: "blue",
     description: "Email input",
   },
-  Checkbox: {
-    id: "Checkbox",
-    icon: FaCheckSquare,
-    color: "yellow",
-    description: "Checkbox input",
-  },
+  
   Select: {
     id: "Select",
     icon: FaList,
     color: "cyan",
     description: "Select dropdown",
-  },
-  ColorPicker: {
-    id: "ColorPicker",
-    icon: FaPalette,
-    color: "purple",
-    description: "Color picker",
-  },
-  FileUpload: {
-    id: "FileUpload",
-    icon: FaFileUpload,
-    color: "orange",
-    description: "File upload",
   },
   Url: {
     id: "Url",
@@ -101,17 +80,6 @@ export const fieldTypeOptions = {
     icon: FaLock,
     color: "blue",
     description: "Password input",
-  },
-  Toggle: {
-    id: "Toggle",
-    icon: FaToggleOff,
-    color: "yellow",
-    description: "Toggle switch",
-  },
-  RangeSlider: {
-    id: "RangeSlider",
-    icon: FaSlidersH,
-    color: "cyan",
-    description: "Range slider",
-  },
+  }
+
 };

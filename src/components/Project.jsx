@@ -28,6 +28,8 @@ const Project = ({ setProjectsLoadingState }) => {
  // const [cachedProjects, setCachedProjects] = useState([]);
   const navigate = useNavigate();
 
+  console.log(projects)
+
   const fetchProjects = useCallback(async () => {
     setProjectsLoading(true);
     let cachedProjects = [];
@@ -43,9 +45,10 @@ const Project = ({ setProjectsLoadingState }) => {
       } else {
         const response = await axios.get(`${baseUrl}/project`);
         setProjectsLoading(false);
+        console.log(response.data.projects)
 
-        if (response.data.length > 0) {
-          setProjects(response.data);
+        if (response.data.projects.length > 0) {
+          setProjects(response.data.projects);
 
           // Update cached projects with the correct userId
 

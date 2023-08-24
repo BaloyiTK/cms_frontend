@@ -16,6 +16,7 @@ import ResetPassword from "./components/ResetPassword";
 import Footer from "./components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { dropdownActions } from "./store";
+import Documentation from "./pages/Documentation";
 
 function App() {
   const navigate = useNavigate();
@@ -32,20 +33,18 @@ function App() {
   };
 
   const handleAppClick = () => {
- 
     if (isDropdownOpen) {
       dispatch(dropdownActions.closeDropdown());
     }
-
   };
 
   return (
-    <div onClick={handleAppClick}>
+    <div onClick={handleAppClick} className="min-h-screen">
       <React.Fragment>
         <header>
           <NavBar handleLogout={handleLogout} />
         </header>
-        <main className="min-h-screen mx-auto">
+        <main className="min-h-screen mx-auto w-[90%] bg-white">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
@@ -54,6 +53,7 @@ function App() {
             <Route path="/project/:id" element={<Master />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/documentation" element={<Documentation/>} />
           </Routes>
         </main>
         <footer>

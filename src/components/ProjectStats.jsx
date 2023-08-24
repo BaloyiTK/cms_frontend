@@ -64,23 +64,23 @@ const ProjectStats = () => {
   const progressPercentage = (numberOfModels / maxModels) * 100;
 
   return (
-    <div className="p-4">
+    <div className="p-4 text-sm">
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <BallTriangle color="blue" height={80} width={80} />
         </div>
       ) : (
         <div>
-          <h2 className="text-2xl font-bold mb-2">
+          <h2 className="text-lg font-bold mb-2">
             {projectName && projectName}
           </h2>
-          <h3 className="text-lg font-bold mb-2">Project Stats</h3>
+          <h3 className="text-base font-bold mb-2">Project Stats</h3>
 
           {/* Stacked layout for small devices */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Models Card */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h4 className="text-lg font-bold mb-2">Models</h4>
+              <h4 className=" font-bold mb-2">Models</h4>
               <p className="text-gray-600">{`${numberOfModels}/${maxModels}`}</p>
               <div className="bg-gray-200 h-2 rounded-lg mt-2">
                 <div
@@ -92,26 +92,11 @@ const ProjectStats = () => {
 
             {/* Project Status Card */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h4 className="text-lg font-bold mb-2">Project Status</h4>
+              <h4 className=" font-bold mb-2">Project Status</h4>
               <p className="text-green-600">Active</p>
             </div>
 
-            {/* Team Members Card 
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h4 className="text-lg font-bold mb-2">Team Members</h4>
-              <ul className="list-disc list-inside text-gray-600">
-                <li>John Doe</li>
-                <li>Jane Smith</li>
-              </ul>
-            </div>*/}
-
-            {/* Number of API Calls Card 
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h4 className="text-lg font-bold mb-2">API Calls</h4>
-              <p className="text-gray-600">108</p>
-            </div>*/}
-
-            {/* You can continue adding more cards for different project stats */}
+       
           </div>
         </div>
       )}

@@ -14,6 +14,8 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import Icon from "../images/Icon.png";
+import checkPasswordStrength from "../utils/checkPasswordStrength ";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,12 +28,43 @@ const Register = () => {
     password: "",
   });
 
+  const [passwordStrength, setPasswordStrength] = useState("");
+  const [passwordColor, setPasswordColor] = useState("")
+
   const handleChange = (e) => {
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
     });
   };
+
+  const result = checkPasswordStrength(""); // Passing an empty string
+console.log(result);
+
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    const { message } = checkPasswordStrength(password);
+    const { color } = checkPasswordStrength(password);
+    setPasswordStrength(message);
+    setPasswordColor(color)
+    handleChange(e);
+  };
+
+  const passwordStrengthColor = (passwordStrength) => {
+    switch (passwordStrength) {
+      case "Weak":
+        return "text-red-500";
+      case "Medium":
+        return "text-orange-500";
+      case "Strong":
+        return "text-green-500";
+      case "Very Strong":
+        return "text-green-500"; // You can assign the same color for Very Strong as Strong if desired
+      default:
+        return ""; // Default color, you can set it to a specific color if needed
+    }
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +88,9 @@ const Register = () => {
       setIsLoading(false);
     }
   };
+
+  
+  console.log(passwordColor)
 
   return (
     <div className="flex justify-center items-center mt-10 ">
@@ -125,7 +161,7 @@ const Register = () => {
                 id="password"
                 autoComplete="password"
                 value={userData.password}
-                onChange={handleChange}
+                onChange={handlePasswordChange}
                 required
                 placeholder="password"
               />
@@ -138,6 +174,17 @@ const Register = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
+
+            <div className="flex items-center text-xs mt-1">
+  <span>Password strength:</span>
+  
+  <div className={` ml-1 text-${passwordColor}-500`}>
+    {passwordStrength}
+  </div>
+</div>
+
+
+          
           </div>
           <div className="flex justify-center">
             <button
@@ -152,8 +199,6 @@ const Register = () => {
                 </div>
               ) : (
                 <div className="flex items-center justify-center">
-                  {" "}
-                  {/* Parent container */}
                   <span className="flex items-center">
                     <FaUserPlus className="mr-2 align-middle" />
                     <span>Register</span>

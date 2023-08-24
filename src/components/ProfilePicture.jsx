@@ -68,11 +68,11 @@ const ProfilePicture = ({ toggleDropdown }) => {
   }
 
   return (
-    <div className="border rounded-full border-white">
+    <div className="border-2 rounded-full border-white profile-picture-container hover:border-2 hover:border-orange-600">
       {userPhoto ? (
         <img
           src={userPhoto}
-          className="w-10 h-10 rounded-full justify-center items-center"
+          className="w-10 h-10 rounded-full justify-center items-center profile-image "
           alt="Profile Image"
           onClick={toggleDropdown}
         />
@@ -81,7 +81,7 @@ const ProfilePicture = ({ toggleDropdown }) => {
           <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           <img
             ref={imageRef}
-            className="w-10 h-10 rounded-full justify-center items-center"
+            className="w-10 h-10 rounded-full justify-center items-center profile-image"
             alt="Profile Image"
             onClick={toggleDropdown}
           />

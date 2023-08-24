@@ -36,7 +36,7 @@ const Master = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       <div className="md:w-1/4 lg:w-1/5 border p-4">
         <SidePanel
           selectedItem={selectedItem}

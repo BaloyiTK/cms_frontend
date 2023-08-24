@@ -16,11 +16,11 @@ const Settings = ({ onSelectedSetting }) => {
       onClick: () => handleSettingClick("Endpoints"),
       //content: <div>Access control content</div> // Replace with actual content
     },
-    // {
-    //   title: "Team Members",
-    //   onClick: () => handleSettingClick("Team Members"),
-    //   //content: <div>Project members content</div> // Replace with actual content
-    // }
+    {
+      title: "Team Members",
+      onClick: () => handleSettingClick("Team Members"),
+      //content: <div>Project members content</div> // Replace with actual content
+    }
   ];
 
   return (

@@ -13,6 +13,7 @@ import {
   RiAccountCircleLine,
 } from "react-icons/ri";
 import LOGO from "../images/LOGO.png";
+import { FiMail } from 'react-icons/fi';
 
 const ProfileDropdown = React.memo(({ handleLogout, handleAccountClick }) => (
   <div className="absolute w-fit right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-md">
@@ -126,25 +127,26 @@ const NavBar = () => {
 
   const unauthenticatedLinks = useMemo(
     () => (
-      <div className="flex">
+      <div className="flex items-center">
       {location.pathname !== "/login" && (
         <Link
           to="/login"
-          className="text-gray-600 hover:text-gray-800 ml-4 font-semibold flex items-center space-x-1"
+          className="text-gray-600 md:ml-4 font-semibold flex items-center md:space-x-1 hover:bg-gray-200 hover: py-1 px-2 rounded-full transition duration-300 ease-in-out"
         >
-          <RiAccountCircleLine className="w-5 h-5" />
+          <RiAccountCircleLine className="w-5 h-5 mr-1 md:m-0" />
           <span>Login</span>
         </Link>
       )}
       {location.pathname !== "/register" && (
         <Link
           to="/register"
-          className="text-gray-600 hover:text-gray-800 ml-4 font-semibold flex items-center space-x-1"
+          className="text-gray-600  md:ml-4 font-semibold flex items-center md:space-x-1 hover:bg-gray-200 hover: py-1 px-2 rounded-full transition duration-300 ease-in-out"
         >
-          <FaUserPlus className="w-5 h-5" />
+          <FaUserPlus className="w-5 h-5 mr-1 md:m-0 " />
           <span>Register</span>
         </Link>
       )}
+    
     </div>
     
     ),

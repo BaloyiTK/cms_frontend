@@ -21,7 +21,8 @@ const ProjectAddForm = ({ onClose, onProjectAdded }) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post(`${baseUrl}/project`, project);
+      const  res = await axios.post(`${baseUrl}/project`, project);
+      console.log(res)
       handleCancel(); // Close the form after successful submission
       setIsLoading(false);
       onProjectAdded();
