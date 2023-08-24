@@ -44,7 +44,7 @@ function App() {
         <header>
           <NavBar handleLogout={handleLogout} />
         </header>
-        <main className="min-h-screen mx-auto w-[90%] bg-white">
+        <main className="min-h-screen mx-auto  bg-white">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
