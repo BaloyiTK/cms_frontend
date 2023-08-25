@@ -27,9 +27,6 @@ const Account = () => {
   const profilePictureKey = useSelector((state) => state.profilePicture.key);
 
   
-
-
-  
   useEffect(() => {
     getUser()
       .then((response) => {

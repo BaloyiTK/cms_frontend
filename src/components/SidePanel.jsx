@@ -11,6 +11,9 @@ import { AiOutlineProject } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { baseUrl } from "../utils/baseUrl";
+import { useSelector, useDispatch } from "react-redux";
+import { adminActions } from "../store";
+import { getUser } from "../utils/api";
 
 const SidePanel = ({ selectedItem, onItemClicked }) => {
   const navigate = useNavigate();
@@ -18,15 +21,64 @@ const SidePanel = ({ selectedItem, onItemClicked }) => {
   const [loading, setLoading] = useState(true);
   const url = window.location.href;
   const projectId = url.split("/").pop();
+  const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.admin.isAdmin);
+  const [user, setUser] = useState(() => {
+    // Try to load user data from cache
+    const cachedUser = localStorage.getItem("cachedUser");
+    return cachedUser ? JSON.parse(cachedUser) : null;
+  });
+  const [userRole, setUserRole] = useState("");
+
+  const [members, setMembers] = useState("");
+  let desiredMember;
+
+  let userId = user._id;
+
+  useEffect(() => {
+    if (!user) {
+      // If user data is not in cache, fetch it
+      getUser()
+        .then((response) => {
+          setUser(response);
+          // Cache the fetched user data
+          localStorage.setItem("cachedUser", JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setUser(user);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userRole === "admin") {
+      dispatch(adminActions.setAdminStatus(true));
+    } else {
+      dispatch(adminActions.setAdminStatus(false));
+    }
+  }, [userRole]);
 
   useEffect(() => {
     const cachedProject = localStorage.getItem(`cachedProject_${projectId}`);
-    
+
     if (cachedProject) {
       setProject(JSON.parse(cachedProject));
       setLoading(false);
+
+      setUserRole(JSON.parse(cachedProject)[0].users);
+
+      const members = JSON.parse(cachedProject)[0].users;
+      desiredMember = members.find((member) => member.user === userId);
+
+      if (desiredMember) {
+        setUserRole(desiredMember.role);
+      }
     } else {
       fetchProject();
+
+      dispatch(adminActions.setAdminStatus(false));
     }
   }, []);
 
@@ -34,8 +86,18 @@ const SidePanel = ({ selectedItem, onItemClicked }) => {
     try {
       const response = await axios.get(`${baseUrl}/project/${projectId}`);
       setProject(response.data);
+
+      const members = response.data[0].users;
+      desiredMember = members.find((member) => member.user === userId);
+      if (desiredMember) {
+        setUserRole(desiredMember.role);
+      }
+
       setLoading(false);
-      localStorage.setItem(`cachedProject_${projectId}`, JSON.stringify(response.data));
+      localStorage.setItem(
+        `cachedProject_${projectId}`,
+        JSON.stringify(response.data)
+      );
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -74,8 +136,6 @@ const SidePanel = ({ selectedItem, onItemClicked }) => {
       color: "#FF9800", // Customize the icon color for Support
     },
   ];
-  
-  
 
   return (
     <div className="max-h-screen">
@@ -90,17 +150,20 @@ const SidePanel = ({ selectedItem, onItemClicked }) => {
         {loading ? "Loading..." : project && project[0].name}
       </h3>
       <ul className="hidden text-base md:block md:p-4">
-        <li
-          className={`flex items-center cursor-pointer p-1 mb-1 hover:bg-blue-50  ${
-            selectedItem === "Schema" ? "bg-blue-100 text-blue-400" : ""
-          }`}
-          onClick={() => onItemClicked("Schema")}
-        >
-          <span className="block text-yellow-500">
-            <FaDatabase className="mr-2" />
-          </span>
-          Model
-        </li>
+        {isAdmin && (
+          <li
+            className={`flex items-center cursor-pointer p-1 mb-1 hover:bg-blue-50  ${
+              selectedItem === "Schema" ? "bg-blue-100 text-blue-400" : ""
+            }`}
+            onClick={() => onItemClicked("Schema")}
+          >
+            <span className="block text-yellow-500">
+              <FaDatabase className="mr-2" />
+            </span>
+            Model
+          </li>
+        )}
+
         <li
           className={`flex items-center cursor-pointer p-1 mb-1 hover:bg-blue-50   ${
             selectedItem === "Content" ? "bg-blue-100  text-blue-400" : ""
@@ -136,32 +199,34 @@ const SidePanel = ({ selectedItem, onItemClicked }) => {
         </li>
       </ul>
 
-
       <ul className="flex md:hidden p-0 bg-gray-100 border-t border-gray-300">
-  {tabItems.map((item) => (
-    <li
-      key={item.id}
-      className={`flex-1 text-center cursor-pointer py-1 font-semibold ${
-        selectedItem === item.id ? "bg-blue-400 text-white" : "text-gray-600"
-      }`}
-      onClick={() => onItemClicked(item.id)}
-    >
-      <div className="flex flex-col items-center">
-        {React.cloneElement(item.icon, {
-          className: "text-xl",
-          style: {
-            color: selectedItem === item.id ? "#ffffff" : item.color,
-          },
-        })}
-        <span className="text-xs mt-1">{item.label}</span>
-      </div>
-    </li>
-  ))}
+  {tabItems
+    .filter((item) => {
+      // Exclude the "Model" tab if the user is not an admin
+      return item.id !== "Schema" || isAdmin;
+    })
+    .map((item) => (
+      <li
+        key={item.id}
+        className={`flex-1 text-center cursor-pointer py-1 font-semibold ${
+          selectedItem === item.id
+            ? "bg-blue-400 text-white"
+            : "text-gray-600"
+        }`}
+        onClick={() => onItemClicked(item.id)}
+      >
+        <div className="flex flex-col items-center">
+          {React.cloneElement(item.icon, {
+            className: "text-xl",
+            style: {
+              color: selectedItem === item.id ? "#ffffff" : item.color,
+            },
+          })}
+          <span className="text-xs mt-1">{item.label}</span>
+        </div>
+      </li>
+    ))}
 </ul>
-
-
-
-   
 
     </div>
   );

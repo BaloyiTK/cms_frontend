@@ -14,6 +14,9 @@ import ProjectDeleteForm from "./ProjectDeleteForm";
 import { baseUrl } from "../utils/baseUrl";
 import { toast } from "react-toastify";
 import { getUser } from "../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { adminActions } from "../store";
+import { AiOutlineWarning } from "react-icons/ai";
 
 const Project = ({ setProjectsLoadingState }) => {
   const [projects, setProjects] = useState([]);
@@ -24,11 +27,41 @@ const Project = ({ setProjectsLoadingState }) => {
   const [projectsLoading, setProjectsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [userId, setUserId] = useState(null);
- // const [projects, setProjects] = useState([]);
- // const [cachedProjects, setCachedProjects] = useState([]);
+  const isAdmin = useSelector((state) => state.admin.isAdmin);
+  const [userRole, setUserRole] = useState("");
+  const dispatch = useDispatch();
+  const [memberId, setMemberId] = useState({});
+  // const [projects, setProjects] = useState([]);
+  // const [cachedProjects, setCachedProjects] = useState([]);
   const navigate = useNavigate();
 
-  console.log(projects)
+
+
+  let desiredMember;
+
+  useEffect(() => {
+    if (selectedProject) {
+      
+
+      const members = selectedProject.users;
+   
+      desiredMember = members.find((member) => member.user === userId);
+      setUserRole(desiredMember.role);
+      setMemberId(desiredMember._id);
+    }
+  }, [selectedProject]);
+
+  useEffect(() => {
+
+    if (userRole === "admin") {
+      dispatch(adminActions.setAdminStatus(true));
+    } else {
+      dispatch(adminActions.setAdminStatus(false));
+    }
+    
+  }, [userRole])
+  
+
 
   const fetchProjects = useCallback(async () => {
     setProjectsLoading(true);
@@ -45,7 +78,6 @@ const Project = ({ setProjectsLoadingState }) => {
       } else {
         const response = await axios.get(`${baseUrl}/project`);
         setProjectsLoading(false);
-        console.log(response.data.projects)
 
         if (response.data.projects.length > 0) {
           setProjects(response.data.projects);
@@ -63,7 +95,6 @@ const Project = ({ setProjectsLoadingState }) => {
       setProjectsLoading(false);
     }
   }, [userId]);
-  
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("cachedUser");
@@ -180,6 +211,24 @@ const Project = ({ setProjectsLoadingState }) => {
     [selectedProject, navigate]
   );
 
+  const handleLeaveProjectClick = async () => {
+    try {
+      // Make an API request to delete the member
+      const res = await axios.delete(
+        `${baseUrl}/deletemember/${selectedProject._id}/${memberId}`
+      );
+
+      // Remove the member from the teamMembers state
+
+      fetchProjects();
+      setSelectedProject(null)
+    } catch (error) {
+      console.error("Error deleting member:", error);
+    }
+  };
+
+  const handleDelete = async (index) => {};
+
   return (
     <div className="relative min-h-screen">
       <div className="flex justify-between items-center mb-4">
@@ -206,37 +255,78 @@ const Project = ({ setProjectsLoadingState }) => {
                 </div>
                 {selectedProject === project && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                    <div
-                      className="py-1"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="options-menu"
-                    >
-                      <button
-                        onClick={handleEditClick}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-500"
-                        role="menuitem"
-                      >
-                        <FaEdit className="mr-2" />
-                        Edit
-                      </button>
-                      <button
-                        onClick={handleDeleteClick}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-500"
-                        role="menuitem"
-                      >
-                        <FaTrashAlt className="mr-2" />
-                        Delete
-                      </button>
-                    </div>
-                    <div className="absolute top-0 right-0 p-2">
-                      <button
-                        onClick={handleCancelClick}
-                        className="text-gray-400 hover:text-red-600 focus:outline-none"
-                      >
-                        <FaTimes />
-                      </button>
-                    </div>
+                    {isAdmin ? (
+                      // If the user is an admin, render Edit and Delete buttons
+                      <>
+                        <div
+                          className="pt-14"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="options-menu"
+                        >
+                          <button
+                            onClick={handleEditClick}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-500"
+                            role="menuitem"
+                          >
+                            <span className="flex items-baseline py-2">
+                              <FaEdit className="mr-1" />
+                              Edit
+                            </span>
+                          </button>
+                          <button
+                            onClick={handleDeleteClick}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-500"
+                            role="menuitem"
+                          >
+                            <span className="flex items-baseline py-2">
+                              {" "}
+                              <FaTrashAlt className="mr-1" />
+                              Delete
+                            </span>
+                          </button>
+                        </div>
+                        <div className="absolute top-0 right-0 p-3 ">
+                          <button
+                            onClick={handleCancelClick}
+                            className="text-gray-400 hover:text-red-600 focus:outline-none hover:bg-gray-100"
+                          >
+                            <FaTimes className="text-lg" />
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      // If the user is not an admin, render the Leave Project button
+                      <>
+                        <div className="bg-white shadow-lg rounded-lg pt-14 space-y-2">
+                          <button
+                            onClick={handleLeaveProjectClick} // You should define this handler function
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out"
+                            role="menuitem"
+                          >
+                            <span className="flex items-center">
+                              Leave Project{" "}
+                            </span>
+                          </button>
+                          <span className="flex items-baseline p-1">
+                            {" "}
+                            <AiOutlineWarning className="text-red-500" />
+                            <p className="text-sm text-gray-600 px-4 py-2">
+                              This is a permanent action
+                            </p>
+                          </span>
+
+                          <div className="absolute top-2 right-3">
+                            <button
+                              onClick={handleCancelClick}
+                              className="text-gray-400 hover:text-red-600 focus:outline-none hover:bg-gray-100"
+                            >
+                              <FaTimes className="text-lg" />
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

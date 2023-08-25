@@ -58,10 +58,22 @@ const profilePictureSlice = createSlice({
   },
 });
 
+// New adminSlice
+const adminSlice = createSlice({
+  name: "admin",
+  initialState: { isAdmin: false },
+  reducers: {
+    setAdminStatus(state, action) {
+      state.isAdmin = action.payload;
+    },
+  },
+});
+
 export const authActions = authSlice.actions;
 export const tabActions = tabSlice.actions;
 export const dropdownActions = dropdownSlice.actions;
 export const profilePictureActions = profilePictureSlice.actions;
+export const adminActions = adminSlice.actions;
 
 export const store = configureStore({
   reducer: {
@@ -69,5 +81,6 @@ export const store = configureStore({
     tab: tabSlice.reducer,
     dropdown: dropdownSlice.reducer,
     profilePicture: profilePictureSlice.reducer,
+    admin: adminSlice.reducer, // Include the admin slice in the Redux store
   },
 });

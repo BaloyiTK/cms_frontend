@@ -138,7 +138,7 @@ const EndpointSettings = () => {
 
   return (
     <>
-      <div className="w-5/6 mx-auto bg-white p-4 rounded-lg shadow-lg">
+      <div className=" w-full md:w-5/6 mx-auto bg-white p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Endpoint</h2>
         <div className="mb-4">
           <label htmlFor="endpoint" className="block mb-2 font-medium text-sm">
@@ -213,7 +213,7 @@ const EndpointSettings = () => {
           </label>
         </div>
       </div>
-      <div className="w-5/6 mx-auto bg-white p-4 rounded-lg shadow-lg mt-2">
+      <div className="w-full md:w-5/6 mx-auto bg-white p-4 rounded-lg shadow-lg mt-2">
         <h2 className="text-xl font-semibold mb-4">API Configuration</h2>
 
         <div className="flex text-xs">

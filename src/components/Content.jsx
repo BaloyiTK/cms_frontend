@@ -50,7 +50,7 @@ const Content = ({ onSelectedModel }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4">
+    <div className="max-w-lg mx-auto md:p-4">
       <div className="h-5 flex items-center">
         <h1 className="text-sm font-bold">CONTENT</h1>
       </div>

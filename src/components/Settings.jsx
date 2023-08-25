@@ -24,7 +24,7 @@ const Settings = ({ onSelectedSetting }) => {
   ];
 
   return (
-    <div className="max-w-lg mx-auto p-4">
+    <div className="max-w-lg mx-auto md:p-4">
       <div className="flex items-center">
         <h1 className="text-sm font-bold">SETTINGS</h1>
       </div>

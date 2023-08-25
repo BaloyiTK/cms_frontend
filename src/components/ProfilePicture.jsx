@@ -11,6 +11,7 @@ const ProfilePicture = ({ toggleDropdown }) => {
     return cachedUser ? JSON.parse(cachedUser) : null;
   });
   const userPhoto = user && user.photo;
+ 
 
   useEffect(() => {
     if (!user) {
