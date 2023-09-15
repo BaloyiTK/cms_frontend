@@ -7,6 +7,8 @@ import Settings from "./Settings";
 import SettingManagement from "./SettingManagement";
 import ProjectStats from "./ProjectStats";
 import MyImage from "../images/database.png";
+import Support from "./Support";
+
 
 const Master = () => {
   const [selectedItem, setSelectedItem] = useState("");
@@ -95,7 +97,17 @@ const Master = () => {
             </div>
           </div>
         )}
-
+        
+        {selectedItem === "Support" && (
+          <div className="flex flex-col md:flex-row h-full">
+            <div className="md:w-1/3 lg:w-1/4 border p-1">
+           <Support/>
+            </div>
+            <div className="md:w-2/3 lg:w-3/4 p-4">
+           
+            </div>
+          </div>
+        )}
         {selectedItem === "Settings" && (
           <div className="flex flex-col md:flex-row h-full">
             <div className="md:w-1/3 lg:w-1/4 border p-1">

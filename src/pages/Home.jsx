@@ -74,7 +74,7 @@ const HomePage = () => {
       Get Started
     </span>
   </Link>
-  <Link
+  {/* <Link
     to="/documentation"
     className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full flex m-2 items-center md:justify-center w-full md:w-40 text-sm md:text-base"
   >
@@ -91,7 +91,7 @@ const HomePage = () => {
       <FaPlay className="mr-1" />
       Demo
     </span>
-  </Link>
+  </Link> */}
 </div>
 
       </main>
