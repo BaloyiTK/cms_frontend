@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} 
+
+@keyframes colorChange {
+  0% {
+      color: red; /* Start color */
+  }
+  25% {
+      color: orange; /* 25% through the animation */
+  }
+  50% {
+      color: red; /* 50% through the animation */
+  }
+  75% {
+      color: orange; /* 75% through the animation */
+  }
+  100% {
+      color: red; /* Back to the start color */
+  }
+}
+
+.animate-color-change {
+  animation: colorChange 5s linear infinite; /* Animation lasts 5 seconds and repeats infinitely */
+}
+
+.gradient-heading {
+  background: linear-gradient(to right, #FF5733, #FFC300); /* Add your gradient colors here */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: colorChange 5s linear infinite; /* Apply the same animation to the text color */
+}
+/* Add this to your CSS file or inside a <style> tag */
+.digital-font {
+  font-family: 'Digital-7', 'Roboto Mono', monospace; /* Choose your digital font here */
+
+}
+
+
+
+
+
+
+
