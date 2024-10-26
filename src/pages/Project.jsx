@@ -35,16 +35,12 @@ const Project = () => {
   // const [cachedProjects, setCachedProjects] = useState([]);
   const navigate = useNavigate();
 
-
-
   let desiredMember;
 
   useEffect(() => {
     if (selectedProject) {
-      
-
       const members = selectedProject.users;
-   
+
       desiredMember = members.find((member) => member.user === userId);
       setUserRole(desiredMember.role);
       setMemberId(desiredMember._id);
@@ -52,16 +48,12 @@ const Project = () => {
   }, [selectedProject]);
 
   useEffect(() => {
-
     if (userRole === "admin") {
       dispatch(adminActions.setAdminStatus(true));
     } else {
       dispatch(adminActions.setAdminStatus(false));
     }
-    
-  }, [userRole])
-  
-
+  }, [userRole]);
 
   const fetchProjects = useCallback(async () => {
     setProjectsLoading(true);
@@ -126,7 +118,7 @@ const Project = () => {
   }, [fetchProjects]);
 
   useEffect(() => {
- //   setProjectsLoadingState(projectsLoading);
+    //   setProjectsLoadingState(projectsLoading);
   }, [projectsLoading]);
 
   useEffect(() => {
@@ -220,7 +212,7 @@ const Project = () => {
 
       // Remove the member from the teamMembers stat
       fetchProjects();
-      setSelectedProject(null)
+      setSelectedProject(null);
     } catch (error) {
       console.error("Error deleting member:", error);
     }
