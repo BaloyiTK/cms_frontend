@@ -28,8 +28,6 @@ const ResetPassword = () => {
     const urlParams = new URLSearchParams(myKeyValues);
     const token = urlParams.get("token");
 
-  
-
     if (!token) {
       // Handle the case where token is missing
       return;
@@ -60,7 +58,7 @@ const ResetPassword = () => {
       }
     } catch (error) {
       // Handle error
-     
+
       toast.error(error, {
         icon: <FaTimes className="text-red-500" />,
       });
@@ -127,11 +125,7 @@ const ResetPassword = () => {
             </div>
           </div>
           <div className="flex justify-center">
-
-          <div className="flex items-center justify-center">
-                  <FaSpinner className="animate-spin" />
-                  <span className="ml-2">Logging in...</span>
-                </div>
+         
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
