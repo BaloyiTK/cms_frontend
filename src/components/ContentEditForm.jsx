@@ -155,9 +155,8 @@ const ContentEditForm = ({
   const publishSchedule = moment(scheduledDateTime).format("YYYY-MM-DDTHH:MM");
 
   return (
-    //<div className="absolute top-[15%] bg-white p-5 w-[400px] rounded-lg shadow-lg">
-    <div className="absolute top-[26%] md:top[25%] left-0 w-screen h-screen my-auto flex items-center justify-center z-50">
-      <div className="bg-white p-3 shadow-2xl border border-gray-300 mx-3 md:w-1/2 md overflow-y:scroll">
+    <div className="absolute inset-0 flex items-center justify-center z-50">
+      <div className="bg-white p-3 shadow-2xl border border-gray-300 mx-3 md:w-1/2 w-full max-h-[80vh] overflow-y-auto">
         <h3 className="text-center text-lg font-bold mb-4">Edit Content</h3>
         {currentStage && (
           <div className="mb-4 w-full flex justify-end p-1 bg-blue-50 rounded-md">
@@ -254,24 +253,23 @@ const ContentEditForm = ({
                       id={field.name}
                       className="block mt-2"
                       name={field.name}
-                      accept="image/*, video/*" // Add accept attribute to allow image and video files
+                      accept="image/*, video/*"
                       onChange={(e) =>
                         handleMediaChange(field.name, e.target.files[0])
                       }
                     />
-                    {/* Show the preview image or video if available */}
                     {previewImageUrls[field.name] ? (
                       previewImageUrls[field.name].startsWith("data:image/") ? (
                         <img
                           src={previewImageUrls[field.name]}
                           alt="Selected media"
-                          className="block mt-2 w-32 h-auto"
+                          className="block mt-2 w-auto max-h-32"
                         />
                       ) : previewImageUrls[field.name].startsWith("blob:") ? (
                         <video
                           src={previewImageUrls[field.name]}
                           controls
-                          className="block mt-2 w-32 h-auto"
+                          className="block mt-2 w-auto max-h-32"
                         />
                       ) : (
                         <p>Unsupported media type</p>
@@ -280,7 +278,7 @@ const ContentEditForm = ({
                       <img
                         src={inputValues[field.name]}
                         alt="Selected media"
-                        className="block mt-2 w-32 h-auto"
+                        className="block mt-2 w-auto max-h-32"
                       />
                     )}
                   </div>
