@@ -156,7 +156,7 @@ const ContentEditForm = ({
 
   return (
     //<div className="absolute top-[15%] bg-white p-5 w-[400px] rounded-lg shadow-lg">
-    <div className="absolute top-[26%] md:top[25%] left-0 w-screen h-screen  my-auto flex items-center justify-center z-50">
+    <div className="absolute top-[26%] md:top[25%] left-0 w-screen h-screen overflow-y:scroll  my-auto flex items-center justify-center z-50">
       <div className="bg-white p-3 shadow-2xl border border-gray-300 mx-3 md:w-1/2 md">
         <h3 className="text-center text-lg font-bold mb-4">Edit Content</h3>
         {currentStage && (
